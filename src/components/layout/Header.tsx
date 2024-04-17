@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Image } from "expo-image";
-const Logo = require("../../../assets/littleLemonLogo.png");
+const Logo = require("@/../../assets/littleLemonLogo.png");
 
 const Header = () => {
   return (

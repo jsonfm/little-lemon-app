@@ -22,7 +22,7 @@ export const Button = ({
       onPress={onPress}
       disabled={loading}
     >
-      <Text>{children}</Text>
+      <Text style={styles.buttonContentText}>{children}</Text>
     </Pressable>
   );
 };
@@ -34,7 +34,11 @@ const styles = StyleSheet.create({
     height: 40,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     borderRadius: 6,
+  },
+  buttonContentText: {
+    fontWeight: "bold",
   },
   primary: {
     backgroundColor: theme.colors.primary,

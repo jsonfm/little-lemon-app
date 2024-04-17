@@ -1,89 +1,54 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet, Animated } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { theme } from "@/global/theme";
-import { Hero } from "@/components/layout/Hero";
-import { useGetMenu } from "@/hooks/api/menu";
-import Header from "@/components/layout/Header";
-import Input from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
-import { z } from "zod";
-import { useForm, Controller } from "react-hook-form";
-
-const LoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(3).max(20),
-});
-
-type LoginSchemaType = z.infer<typeof LoginSchema>;
+import { assets } from "@/global/constants";
+import { Image } from "expo-image";
+import { UsersService } from "@/services/users";
+import { router } from "expo-router";
 
 const Home = () => {
-  // const { data, isLoading } = useGetMenu();
-  const [loading, setLoading] = useState(false);
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginSchemaType>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-  const onSubmit = (data: LoginSchemaType) => {
-    setLoading(true);
-    try {
-    } catch (error) {}
-    setLoading(false);
-  };
+  const animation = useRef(new Animated.Value(1));
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await UsersService.getCurrentUser();
+      if (!user) {
+        router.navigate("/login");
+      }
+    };
+    fetchUser();
+  }, []);
+
+  useEffect(() => {
+    // makes the sequence loop
+    Animated.loop(
+      // runs given animations in a sequence
+      Animated.sequence([
+        Animated.timing(animation.current, {
+          useNativeDriver: true,
+          toValue: 1.1,
+          duration: 500,
+        }),
+        // decrease size
+        Animated.timing(animation.current, {
+          useNativeDriver: true,
+          toValue: 1,
+          duration: 1000,
+        }),
+      ])
+    ).start();
+  }, []);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Header />
-      <Hero
-        heading="LittleLemon"
-        subheading="Chicago"
-        about="We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist."
-        image="https://images.immediate.co.uk/production/volatile/sites/30/2021/07/NYC-style-hot-dogs-with-street-cart-onions-b473660.jpg"
-      />
-      <View style={styles.form}>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              label="Email"
-              type="text"
-              placeholder="email@example.com"
-              value={value}
-              onChangeText={onChange}
-            />
-          )}
-          name="email"
-        />
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              label="Password"
-              type="password"
-              placeholder="****"
-              value={value}
-              onChangeText={onChange}
-            />
-          )}
-          name="password"
-        />
-
-        <View>
-          <Button onPress={handleSubmit(onSubmit) as any}>Login</Button>
-        </View>
-      </View>
+      <Animated.View
+        style={{
+          transform: [{ scale: animation.current }],
+          ...styles.logoContainer,
+        }}
+      >
+        <Image contentFit="contain" source={assets.logo} style={styles.logo} />
+      </Animated.View>
     </SafeAreaView>
   );
 };
@@ -92,11 +57,15 @@ export default Home;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    // paddingHorizontal: theme.padding.md,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  form: {
-    paddingHorizontal: theme.padding.lg,
-    gap: 40,
-    paddingTop: theme.padding.md,
+  logoContainer: {
+    width: 200,
+  },
+  logo: {
+    width: "100%",
+    height: "100%",
   },
 });

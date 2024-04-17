@@ -2,6 +2,7 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import React, { useState } from "react";
 import { theme } from "@/global/theme";
 import { Entypo } from "@expo/vector-icons";
+import { FieldError } from "react-hook-form";
 
 interface Props {
   label?: string;
@@ -9,6 +10,7 @@ interface Props {
   placeholder?: string;
   value?: string;
   onChangeText?: (text: string) => void;
+  error?: FieldError;
 }
 
 const Input = ({
@@ -17,6 +19,7 @@ const Input = ({
   placeholder,
   value,
   onChangeText,
+  error,
 }: Props) => {
   const isPassword = type == "password";
   const [showPassword, setShowPassword] = useState(false);
@@ -24,8 +27,15 @@ const Input = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <View style={styles.inputContainer}>
+      <Text style={[styles.label, !!error && { color: theme.colors.error }]}>
+        {label}
+      </Text>
+      <View
+        style={[
+          styles.inputContainer,
+          !!error && { borderColor: theme.colors.error },
+        ]}
+      >
         <TextInput
           secureTextEntry={isPassword ? showPassword : false}
           placeholder={placeholder}
@@ -49,6 +59,7 @@ const Input = ({
           </Pressable>
         )}
       </View>
+      {!!error && <Text style={styles.errorText}>{error?.message}</Text>}
     </View>
   );
 };
@@ -57,13 +68,17 @@ export default Input;
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 40,
+    // minHeight: 40,
+    maxHeight: 90,
+    height: 40,
     minWidth: 300,
     paddingHorizontal: 4,
     flex: 1,
     gap: 4,
   },
-  label: {},
+  label: {
+    fontWeight: "bold",
+  },
   inputContainer: {
     height: 40,
     borderColor: theme.colors.gray,
@@ -77,5 +92,11 @@ const styles = StyleSheet.create({
   input: {
     width: "90%",
     height: 40,
+    backgroundColor: "transparent",
+    borderWidth: 0,
+  },
+  errorText: {
+    color: theme.colors.error,
+    fontSize: 12,
   },
 });
