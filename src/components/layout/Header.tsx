@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 const Logo = require("@/../../assets/littleLemonLogo.png");
 
-const Header = () => {
+export const Header = () => {
   return (
     <View style={styles.header}>
       {/* <Text>Header</Text> */}
@@ -10,8 +10,6 @@ const Header = () => {
     </View>
   );
 };
-
-export default Header;
 
 const styles = StyleSheet.create({
   header: {

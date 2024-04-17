@@ -13,7 +13,7 @@ interface Props {
   error?: FieldError;
 }
 
-const Input = ({
+export const Input = ({
   label,
   type = "text",
   placeholder,
@@ -63,8 +63,6 @@ const Input = ({
     </View>
   );
 };
-
-export default Input;
 
 const styles = StyleSheet.create({
   container: {

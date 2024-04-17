@@ -2,24 +2,15 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { theme } from "@/global/theme";
-import { Hero } from "@/components/layout/Hero";
-import { useGetMenu } from "@/hooks/api/menu";
-import Header from "@/components/layout/Header";
-import Input from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
-import { z } from "zod";
-import { useForm, Controller } from "react-hook-form";
+import { useGetCategories, useGetMenu } from "@/hooks/api/menu";
 
-const LoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(3).max(20),
-});
-
-type LoginSchemaType = z.infer<typeof LoginSchema>;
+// components
+import { Header, Hero } from "@/components/layout";
+import { DishesList, CategoriesSelector } from "@/components/menu";
 
 const Home = () => {
-  // const { data, isLoading } = useGetMenu();
-  const [loading, setLoading] = useState(false);
+  const { data: dishes, isLoading: loadingDishes } = useGetMenu();
+  const { categories } = useGetCategories();
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -30,6 +21,8 @@ const Home = () => {
         about="We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist."
         image="https://images.immediate.co.uk/production/volatile/sites/30/2021/07/NYC-style-hot-dogs-with-street-cart-onions-b473660.jpg"
       />
+      <CategoriesSelector categories={categories} />
+      <DishesList dishes={dishes} loading={loadingDishes} />
     </SafeAreaView>
   );
 };
