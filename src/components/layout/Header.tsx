@@ -7,6 +7,13 @@ export const Header = () => {
     <View style={styles.header}>
       {/* <Text>Header</Text> */}
       <Image contentFit="contain" source={Logo} style={styles.logo} />
+      <View style={styles.avatar}>
+        <Image
+          style={styles.avatarImage}
+          contentFit="cover"
+          source="https://github.com/isakanderson-official/little-lemon/blob/main/assets/Profile.png?raw=true"
+        />
+      </View>
     </View>
   );
 };
@@ -25,5 +32,15 @@ const styles = StyleSheet.create({
   logo: {
     height: 30,
     width: 100,
+  },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    overflow: "hidden",
+  },
+  avatarImage: {
+    width: "100%",
+    height: "100%",
   },
 });

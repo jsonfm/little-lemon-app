@@ -42,6 +42,8 @@ export const Input = ({
           style={styles.input}
           value={value}
           onChangeText={onChangeText}
+          autoComplete="off"
+          autoCapitalize="none"
         />
         {isPassword && (
           <Pressable onPress={toggleShowPassword}>
