@@ -2,6 +2,8 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { theme } from "@/global/theme";
 import { Image } from "expo-image";
+import { SearchBar } from "react-native-screens";
+import { Search } from "@/components/ui/Search";
 
 interface Props {
   heading: string;
@@ -30,7 +32,9 @@ export const Hero = ({
           <Image source={image} style={styles.image} />
         </View>
       </View>
-      <View></View>
+      <View style={styles.searchContainer}>
+        <Search />
+      </View>
     </View>
   );
 };
@@ -38,7 +42,7 @@ export const Hero = ({
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: theme.colors.secondary,
-    flexDirection: "row",
+    // flexDirection: "row",
     // paddingHorizontal: theme.padding.md,
     height: 225,
     padding: 20,
@@ -74,5 +78,8 @@ const styles = StyleSheet.create({
   about: {
     color: theme.colors.white,
     marginTop: 10,
+  },
+  searchContainer: {
+    marginTop: 20,
   },
 });

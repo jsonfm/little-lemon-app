@@ -1,8 +1,14 @@
-### Little Lemon
+### 🍋 Little Lemon
 
 Mobile App made with React Native.
 
-### Technologies
+### UI/UX
+
+<img
+    src="./docs/images/ux.png"
+/>
+
+### 🛠️ Technologies
 
 - SWR
 - React Hook Form
