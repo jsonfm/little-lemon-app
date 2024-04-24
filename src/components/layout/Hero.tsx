@@ -29,7 +29,7 @@ export const Hero = ({
           <Text style={styles.about}>{about}</Text>
         </View>
         <View style={styles.imageContainer}>
-          <Image source={image} style={styles.image} />
+          <Image source={image} style={styles.image} cachePolicy={"memory"} />
         </View>
       </View>
       <View style={styles.searchContainer}>
@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
   },
   subheading: {
     color: theme.colors.white,
+    fontSize: 18,
+    // fontWeight: "bold",
     marginTop: 10,
   },
   about: {

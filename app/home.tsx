@@ -19,7 +19,7 @@ const Home = () => {
         heading="LittleLemon"
         subheading="Chicago"
         about="We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist."
-        image="https://images.immediate.co.uk/production/volatile/sites/30/2021/07/NYC-style-hot-dogs-with-street-cart-onions-b473660.jpg"
+        image="https://github.com/marventures/little-lemon-app/blob/master/img/restauranfood.png?raw=true"
       />
       <CategoriesSelector categories={categories} />
       <DishesList dishes={dishes} loading={loadingDishes} />

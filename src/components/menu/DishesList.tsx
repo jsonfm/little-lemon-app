@@ -23,9 +23,14 @@ export const DishesList = ({ dishes, loading }: Props) => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    paddingHorizontal: theme.padding.lg,
+    // paddingHorizontal: theme.padding.lg,
+    flex: 1,
+    // borderWidth: 2,
+    minHeight: 500,
+    paddingBottom: 30,
   },
   list: {
     gap: 10,
+    paddingHorizontal: theme.padding.lg,
   },
 });

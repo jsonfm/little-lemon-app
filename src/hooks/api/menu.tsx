@@ -14,7 +14,8 @@ export const useGetCategories = () => {
   useEffect(() => {
     if (!data?.length) return;
     const filtered = data?.map((item) => item.category);
-    setCategories(filtered);
+    const single = new Set(filtered);
+    setCategories([...single]);
   }, [data]);
 
   return {

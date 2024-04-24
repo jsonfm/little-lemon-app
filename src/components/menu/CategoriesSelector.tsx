@@ -9,11 +9,14 @@ interface Props {
 
 export const CategoriesSelector = ({ categories }: Props) => {
   return (
-    <ScrollView style={styles.categoriesContainer} horizontal>
-      {categories?.map((item, index) => (
-        <CategoryOption key={`category-${index}`} category={item} />
-      ))}
-    </ScrollView>
+    <View>
+      <Text style={styles.title}>Order for Delivery</Text>
+      <ScrollView style={styles.categoriesContainer} horizontal>
+        {categories?.map((item, index) => (
+          <CategoryOption key={`category-${index}`} category={item} />
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
@@ -27,5 +30,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingRight: 20,
     minHeight: 40,
+  },
+  title: {
+    paddingHorizontal: theme.padding.lg,
+    paddingTop: 10,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

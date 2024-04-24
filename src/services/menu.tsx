@@ -16,6 +16,7 @@ export class MenuService {
   static getMenuApi = async () => {
     const data = await fetch(`${API_URL}`).then((res) => res.json());
     const result = data?.menu?.map(mapImage);
+    console.log("🚀 ~ MenuService ~ getMenuApi= ~ result:", result);
     return result as Dish[];
   };
   static getMenu = async () => {

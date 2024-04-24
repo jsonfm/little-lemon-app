@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import React from "react";
+import { theme } from "@/global/theme";
 
 interface Props {
   dish: Dish;
@@ -14,10 +15,15 @@ export const DishItem = ({ dish }: Props) => {
         <Text style={styles.description} numberOfLines={2}>
           {dish?.description}
         </Text>
-        <Text>$ {dish?.price?.toFixed(2)}</Text>
+        <Text style={styles.price}>$ {dish?.price?.toFixed(2)}</Text>
       </View>
       <View style={styles.imageContainer}>
-        <Image contentFit="cover" source={dish?.image} style={styles.image} />
+        <Image
+          contentFit="cover"
+          source={dish?.image}
+          style={styles.image}
+          cachePolicy={"memory-disk"}
+        />
       </View>
     </View>
   );
@@ -30,6 +36,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 20,
     // paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderColor: theme.colors.grayDark,
   },
   contentContainer: {
     flex: 0.7,
@@ -40,16 +48,21 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   description: {
-    marginBottom: 6,
+    marginBottom: 8,
     fontSize: 12,
   },
   price: {
-    fontSize: 13,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#d08931",
   },
   imageContainer: {
     flex: 0.3,
     width: 100,
     height: 80,
+    backgroundColor: theme.colors.gray,
+    borderRadius: theme.radius.md,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
