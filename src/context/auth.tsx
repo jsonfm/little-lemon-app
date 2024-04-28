@@ -52,7 +52,6 @@ export const AuthContextProvider = ({ children }: AuthContextProvider) => {
         const data = await AuthStorage.getCurrentUser();
         setUser(data);
         setIsAuthenticated(true);
-        console.log("user: ", data);
         router.navigate("/home");
       } catch (error) {
         router.navigate("/login");
@@ -82,6 +81,8 @@ export const AuthContextProvider = ({ children }: AuthContextProvider) => {
       try {
       } catch (error) {
         await AuthStorage.clearAuth();
+        setUser(undefined);
+        setIsAuthenticated(false);
         if (withNavigation) {
           router.navigate("/login");
         }
