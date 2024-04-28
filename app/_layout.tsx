@@ -8,12 +8,14 @@ import {
 import { SWRProviderConfig } from "@/config/swr";
 import Toast from "react-native-toast-message";
 import { AuthContextProvider } from "@/context/auth";
+import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 
 const Layout = () => {
   const insets = useSafeAreaInsets();
   return (
     <SWRProviderConfig>
       <AuthContextProvider>
+        <ExpoStatusBar style="dark" />
         <SafeAreaProvider>
           <Toast topOffset={insets.top} />
           <Slot />

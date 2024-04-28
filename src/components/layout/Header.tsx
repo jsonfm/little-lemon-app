@@ -1,9 +1,12 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { router } from "expo-router";
+import { theme } from "@/global/theme";
+import { useAuth } from "@/context/auth";
 const Logo = require("@/../../assets/littleLemonLogo.png");
 
 export const Header = () => {
+  const { user } = useAuth();
   return (
     <View style={styles.header}>
       <View style={styles.containerOne}></View>
@@ -13,11 +16,9 @@ export const Header = () => {
           style={styles.avatar}
           onPress={() => router.navigate("/menu/profile")}
         >
-          <Image
-            style={styles.avatarImage}
-            contentFit="cover"
-            source="https://github.com/isakanderson-official/little-lemon/blob/main/assets/Profile.png?raw=true"
-          />
+          <Text style={styles.avatarText}>
+            {user?.firstName?.[0]} {user?.lastName?.[0]}
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -54,6 +55,14 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 24,
     overflow: "hidden",
+    backgroundColor: theme.colors.secondary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  avatarText: {
+    color: theme.colors.white,
+    fontSize: 16,
+    fontWeight: "bold",
   },
   avatarImage: {
     width: "100%",

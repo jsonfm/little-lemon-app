@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   registerLink: {
     marginTop: 20,
     alignItems: "center",
+    justifyContent: "center",
   },
   registerLinkText: {
     alignItems: "center",

@@ -15,14 +15,26 @@ export const Button = ({
   onPress,
   loading = false,
 }: Props) => {
-  const buttonStyles = [styles.button, variant == "primary" && styles.primary];
+  const buttonStyles = [
+    styles.button,
+    variant == "primary" && styles.primary,
+    variant == "black" && styles.black,
+  ];
+  const textStyles = [
+    styles.buttonContentText,
+    variant == "primary" && styles.primaryText,
+    variant == "secondary" && styles.secondaryText,
+    variant == "black" && styles.blackText,
+  ];
   return (
     <Pressable
-      style={({ pressed }) => [...buttonStyles, { opacity: pressed ? 0.8 : 1 }]}
+      style={({ pressed }) =>
+        [...buttonStyles, { opacity: pressed ? 0.8 : 1 }] as any
+      }
       onPress={onPress}
       disabled={loading}
     >
-      <Text style={styles.buttonContentText}>{children}</Text>
+      <Text style={textStyles}>{children}</Text>
     </Pressable>
   );
 };
@@ -44,6 +56,18 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   primaryText: {
+    color: theme.colors.white,
+  },
+  secondary: {
+    backgroundColor: theme.colors.secondary,
+  },
+  secondaryText: {
+    color: theme.colors.white,
+  },
+  black: {
+    backgroundColor: theme.colors.black,
+  },
+  blackText: {
     color: theme.colors.white,
   },
 });
