@@ -28,15 +28,26 @@ export const useAuth = () => {
 interface AuthContextProvider {
   children: ReactNode;
 }
-const AuthContextProvider = ({ children }: AuthContextProvider) => {
+
+export const AuthContextProvider = ({ children }: AuthContextProvider) => {
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const login = useCallback(
-    async ({ email, password }: { email: string; password: string }) => {},
+    async ({ email, password }: { email: string; password: string }) => {
+      setLoading(true);
+      try {
+      } catch (error) {}
+      setLoading(false);
+    },
     [isAuthenticated]
   );
 
-  const logout = useCallback(async (withNavigation = true) => {}, []);
+  const logout = useCallback(async (withNavigation = true) => {
+    setLoading(true);
+    try {
+    } catch (error) {}
+    setLoading(false);
+  }, []);
   return (
     <AuthContext.Provider value={{ login, logout, isAuthenticated, loading }}>
       {children}
