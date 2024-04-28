@@ -49,6 +49,7 @@ const Login = () => {
             contentFit="contain"
             source={assets.logo}
             style={styles.logo}
+            cachePolicy={"memory-disk"}
           />
         </View>
         <View style={styles.form}>

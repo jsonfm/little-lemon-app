@@ -12,14 +12,21 @@ export const CategoryOption = ({ category }: Props) => {
   const isActive = filters?.findIndex((item) => item === category) > -1;
 
   const onPress = () => {
-    const index = filters?.findIndex((item) => item === category);
-    if (index > -1) {
-      const items = filters?.splice(index, 0);
-      setFilters(items);
+    const isInclude = filters?.includes(category);
+    if (!isInclude) {
+      setFilters([category]);
     } else {
-      const items = [...filters, category];
-      setFilters(items);
+      setFilters([]);
     }
+
+    // const index = filters?.findIndex((item) => item === category);
+    // if (index > -1) {
+    //   const items = filters?.splice(index, 0);
+
+    // } else {
+    //   const items = [...filters, category];
+    //   setFilters(items);
+    // }
   };
 
   return (

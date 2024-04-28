@@ -1,7 +1,8 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DishItem } from "./DishItem";
 import { theme } from "@/global/theme";
+import { useMenuStore } from "@/store/menu";
 
 interface Props {
   dishes?: Dish[];
@@ -9,10 +10,42 @@ interface Props {
 }
 
 export const DishesList = ({ dishes, loading }: Props) => {
+  const [filtered, setFiltered] = useState<Dish[]>([]);
+  const { query, filters } = useMenuStore();
+
+  useEffect(() => {
+    if (!dishes?.length) return;
+    const category = filters?.[0];
+    let items = [];
+    if (!!query && query?.length > 3) {
+      items = dishes?.filter(
+        (item) =>
+          item?.name
+            ?.toLocaleLowerCase()
+            ?.includes(query?.toLocaleLowerCase()) ||
+          item?.description
+            ?.toLocaleLowerCase()
+            ?.includes(query?.toLocaleLowerCase())
+      );
+    } else {
+      items = dishes;
+    }
+
+    if (!!category) {
+      const result = items?.filter(
+        (item) =>
+          item?.category?.toLocaleLowerCase() === category?.toLocaleLowerCase()
+      );
+      setFiltered(result);
+    } else {
+      setFiltered(items);
+    }
+  }, [dishes, query, filters]);
+
   return (
     <View style={styles.listContainer}>
       <FlatList
-        data={dishes}
+        data={filtered}
         style={styles.list}
         keyExtractor={(_, index) => `dish-${index}`}
         renderItem={({ item }) => <DishItem dish={item} />}
