@@ -10,6 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Link, router } from "expo-router";
 import { Button, Input } from "@/components/ui";
 import Toast from "react-native-toast-message";
+import { UsersService } from "@/services/users";
 
 const RegisterSchema = z.object({
   firstName: z.string(),
@@ -35,13 +36,19 @@ const Register = () => {
     },
     resolver: zodResolver(RegisterSchema),
   });
-  const onSubmit = (data: RegisterSchemaType) => {
+  const onSubmit = async (data: RegisterSchemaType) => {
     setLoading(true);
     try {
+      const user = await UsersService.register(data);
       Toast.show({ type: "success", text1: "Register", text2: "Completed" });
-      // console.log({ data });
       router.navigate("/login");
-    } catch (error) {}
+    } catch (error: any) {
+      Toast.show({
+        type: "error",
+        text1: "Register",
+        text2: error?.message || "Something went wrong",
+      });
+    }
     setLoading(false);
   };
 

@@ -10,7 +10,7 @@ export class UsersRepositories {
 
   deleteTable = async () => {
     const db = getDatabase();
-    await db.execAsync(`DELETE FROM ${this.table}`);
+    await db.execAsync(`DELETE FROM ${this.table};`);
   };
 
   getUserByEmail = async (email: string) => {
@@ -18,6 +18,9 @@ export class UsersRepositories {
     const item = await db.getFirstAsync(
       `SELECT * FROM ${this.table} WHERE email='${email}' LIMIT 1`
     );
+    if (!item) {
+      throw new Error(`user with email '${email}' not found`);
+    }
     return item as UserSchemaType;
   };
 
@@ -29,17 +32,23 @@ export class UsersRepositories {
     `);
   };
 
-  register = async (data: {
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-  }) => {
-    let sql = `INSERT INTO ${this.table} (email, description, price, image, category) VALUES `;
+  register = async (
+    data: {
+      email: string;
+      password: string;
+      firstName: string;
+      lastName: string;
+    },
+    return_: boolean = true
+  ) => {
+    let sql = `INSERT INTO ${this.table} (email, password, firstName, lastName) VALUES `;
     sql += `('${data.email}', '${data.password}', '${data.firstName}', '${data.lastName}');`;
-
+    console.log(`sql: ${sql}`);
     const db = getDatabase();
     await db.execAsync(sql);
+    if (return_) {
+      return this.getUserByEmail(data?.email);
+    }
   };
 }
 

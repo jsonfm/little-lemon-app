@@ -68,8 +68,14 @@ export const AuthContextProvider = ({ children }: AuthContextProvider) => {
       try {
         const user = await UsersService.login({ email, password });
         await AuthStorage.saveAuth(user);
-        router.navigate("/home");
-      } catch (error) {}
+        setUser(user);
+        setIsAuthenticated(true);
+        router.navigate("/menu/home");
+      } catch (error) {
+        setLoading(false);
+        throw error;
+      }
+
       setLoading(false);
     },
     [isAuthenticated]

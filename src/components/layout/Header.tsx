@@ -11,7 +11,7 @@ export const Header = () => {
         <Image contentFit="contain" source={Logo} style={styles.logo} />
         <Pressable
           style={styles.avatar}
-          onPress={() => router.push("/profile")}
+          onPress={() => router.navigate("/menu/profile")}
         >
           <Image
             style={styles.avatarImage}

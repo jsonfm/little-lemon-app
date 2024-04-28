@@ -9,9 +9,13 @@ export class UsersService {
     password: string;
   }) => {
     const user = await usersRepository.getUserByEmail(email);
+    console.log({ user });
     if (user?.password !== password) {
       throw new Error(`Wrong Password`);
     }
     return user;
+  };
+  static register = async (data: any) => {
+    return await usersRepository.register(data);
   };
 }

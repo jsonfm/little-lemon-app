@@ -11,6 +11,7 @@ import { assets } from "@/global/constants";
 import { Link, router } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/context/auth";
+import Toast from "react-native-toast-message";
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -37,10 +38,14 @@ const Login = () => {
   const onSubmit = async ({ email, password }: LoginSchemaType) => {
     setLoading(true);
     try {
-      // console.log({ data });
       await login({ email, password });
-      // router.navigate("/home");
-    } catch (error) {
+      router.navigate("/menu/home");
+    } catch (error: any) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: error?.message || "something went wrong",
+      });
       console.log("error user: ", error);
     }
     setLoading(false);

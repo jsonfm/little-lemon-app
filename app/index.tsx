@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { assets } from "@/global/constants";
 import { Image } from "expo-image";
-import { UsersService } from "@/services/users";
-import { router } from "expo-router";
 
 const Home = () => {
   const animation = useRef(new Animated.Value(1));
