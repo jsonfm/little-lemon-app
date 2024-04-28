@@ -10,6 +10,7 @@ import { Image } from "expo-image";
 import { assets } from "@/global/constants";
 import { Link, router } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/context/auth";
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -21,6 +22,7 @@ type LoginSchemaType = z.infer<typeof LoginSchema>;
 const Login = () => {
   // const { data, isLoading } = useGetMenu();
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const {
     control,
     handleSubmit,
@@ -32,12 +34,15 @@ const Login = () => {
     },
     resolver: zodResolver(LoginSchema),
   });
-  const onSubmit = (data: LoginSchemaType) => {
+  const onSubmit = async ({ email, password }: LoginSchemaType) => {
     setLoading(true);
     try {
-      console.log({ data });
-      router.navigate("/home");
-    } catch (error) {}
+      // console.log({ data });
+      await login({ email, password });
+      // router.navigate("/home");
+    } catch (error) {
+      console.log("error user: ", error);
+    }
     setLoading(false);
   };
 
@@ -89,7 +94,9 @@ const Login = () => {
           />
 
           <View style={styles.buttonContainer}>
-            <Button onPress={handleSubmit(onSubmit) as any}>Login</Button>
+            <Button loading={loading} onPress={handleSubmit(onSubmit) as any}>
+              Login
+            </Button>
           </View>
 
           <Link href="/login/register" style={styles.registerLink}>

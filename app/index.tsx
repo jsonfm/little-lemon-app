@@ -10,16 +10,6 @@ const Home = () => {
   const animation = useRef(new Animated.Value(1));
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const user = await UsersService.getCurrentUser();
-      if (!user) {
-        router.navigate("/login");
-      }
-    };
-    fetchUser();
-  }, []);
-
-  useEffect(() => {
     // makes the sequence loop
     Animated.loop(
       // runs given animations in a sequence

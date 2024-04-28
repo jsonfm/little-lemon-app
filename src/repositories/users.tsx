@@ -1,4 +1,5 @@
 import { getDatabase } from "@/storage/db";
+import { UserSchemaType } from "@/validators/users";
 
 export class UsersRepositories {
   table = "users";
@@ -17,7 +18,7 @@ export class UsersRepositories {
     const item = await db.getFirstAsync(
       `SELECT * FROM ${this.table} WHERE email='${email}' LIMIT 1`
     );
-    return item;
+    return item as UserSchemaType;
   };
 
   createTable = () => {
@@ -41,3 +42,5 @@ export class UsersRepositories {
     await db.execAsync(sql);
   };
 }
+
+export const usersRepository = new UsersRepositories();

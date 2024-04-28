@@ -48,7 +48,7 @@ export const Input = ({
         {isPassword && (
           <Pressable onPress={toggleShowPassword}>
             <Text>
-              {showPassword ? (
+              {!showPassword ? (
                 <Entypo name="eye" size={24} color={theme.colors.gray} />
               ) : (
                 <Entypo
