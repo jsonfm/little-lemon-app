@@ -22,6 +22,12 @@ Mobile App made with React Native.
 - SQLite
 - AsyncStorage
 
+### Installation
+
+```
+npm install
+```
+
 ### Development
 
 ```
