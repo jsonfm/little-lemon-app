@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
     width: 100,
   },
   avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     overflow: "hidden",
     backgroundColor: theme.colors.secondary,
     alignItems: "center",
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     color: theme.colors.white,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
   },
   avatarImage: {

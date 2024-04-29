@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React, { ReactNode } from "react";
 import { theme } from "@/global/theme";
 
@@ -18,6 +24,7 @@ export const Button = ({
   const buttonStyles = [
     styles.button,
     variant == "primary" && styles.primary,
+    variant == "secondary" && styles.secondary,
     variant == "black" && styles.black,
   ];
   const textStyles = [
@@ -34,6 +41,7 @@ export const Button = ({
       onPress={onPress}
       disabled={loading}
     >
+      {loading && <ActivityIndicator />}
       <Text style={textStyles}>{children}</Text>
     </Pressable>
   );
@@ -48,6 +56,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 6,
+    gap: 3,
   },
   buttonContentText: {
     fontWeight: "bold",

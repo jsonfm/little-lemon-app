@@ -35,7 +35,12 @@ const Home = () => {
           ...styles.logoContainer,
         }}
       >
-        <Image contentFit="contain" source={assets.logo} style={styles.logo} />
+        <Image
+          contentFit="contain"
+          source={assets.logo}
+          style={styles.logo}
+          cachePolicy={"memory-disk"}
+        />
       </Animated.View>
     </SafeAreaView>
   );

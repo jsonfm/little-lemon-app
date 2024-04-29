@@ -19,7 +19,7 @@ export class AuthStorage {
   };
 
   static getCurrentUser = async () => {
-    const data = await AsyncStorage.getItem("user");
+    const data = await AsyncStorage.getItem(AUTH_KEY);
     if (!data) {
       throw new Error(`user not found`);
     }
