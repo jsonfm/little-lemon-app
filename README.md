@@ -8,6 +8,12 @@ Mobile App made with React Native.
     src="./docs/images/ux.png"
 />
 
+### Preview
+
+<img
+    src="./docs/images/preview.gif"
+/>
+
 ### 🛠️ Technologies
 
 - SWR
